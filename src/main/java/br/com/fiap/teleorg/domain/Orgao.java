@@ -3,18 +3,16 @@ package br.com.fiap.teleorg.domain;
 
 import io.github.zealbuquerque.enums.StatusOrgao;
 import io.github.zealbuquerque.enums.TipoOrgao;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table
-public class Orgao {
+public class Orgao implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column
@@ -33,5 +31,56 @@ public class Orgao {
     @JoinColumn(name = "doador_id")
     private Doador doador;
 
+    public Orgao () {};
+    public Orgao(Integer id, TipoOrgao tipoOrgao, StatusOrgao statusOrgao, Doador doador) {
+        this.id = id;
+        this.tipoOrgao = tipoOrgao;
+        this.statusOrgao = statusOrgao;
+        this.doador = doador;
+    }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public TipoOrgao getTipoOrgao() {
+        return tipoOrgao;
+    }
+
+    public void setTipoOrgao(TipoOrgao tipoOrgao) {
+        this.tipoOrgao = tipoOrgao;
+    }
+
+    public StatusOrgao getStatusOrgao() {
+        return statusOrgao;
+    }
+
+    public void setStatusOrgao(StatusOrgao statusOrgao) {
+        this.statusOrgao = statusOrgao;
+    }
+
+    public Doador getDoador() {
+        return doador;
+    }
+
+    public void setDoador(Doador doador) {
+        this.doador = doador;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Orgao)) return false;
+        Orgao orgao = (Orgao) o;
+        return getId().equals(orgao.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

@@ -1,6 +1,6 @@
-package io.github.zealbuquerque.repository;
+package br.com.fiap.teleorg.repository;
 
-import io.github.zealbuquerque.domain.Entrega;
+import br.com.fiap.teleorg.domain.Entrega;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EntregaRepository extends JpaRepository<Entrega, Integer> {

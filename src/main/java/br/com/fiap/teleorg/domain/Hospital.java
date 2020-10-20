@@ -1,25 +1,21 @@
 package br.com.fiap.teleorg.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table
-public class Hospital {
+public class Hospital implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String nome;
 
-    @CNPJ
+    //@CNPJ
     @Column(nullable = false)
     private String cnpj;
 
