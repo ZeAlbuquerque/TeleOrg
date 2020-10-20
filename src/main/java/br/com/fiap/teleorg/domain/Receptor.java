@@ -5,6 +5,7 @@ import br.com.fiap.teleorg.enums.TipoSanguineo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 
 
 @Entity
@@ -34,4 +35,76 @@ public class Receptor implements Serializable {
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
+
+    public Receptor() {};
+
+    public Receptor(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Hospital hospital) {
+        this.id = id;
+        this.nome = nome;
+        this.tipoSanguineo = tipoSanguineo;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.hospital = hospital;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public TipoSanguineo getTipoSanguineo() {
+        return tipoSanguineo;
+    }
+
+    public void setTipoSanguineo(TipoSanguineo tipoSanguineo) {
+        this.tipoSanguineo = tipoSanguineo;
+    }
+
+    public Calendar getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Calendar dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Receptor)) return false;
+        Receptor receptor = (Receptor) o;
+        return getId().equals(receptor.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

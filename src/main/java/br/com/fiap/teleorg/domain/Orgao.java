@@ -1,8 +1,9 @@
 package br.com.fiap.teleorg.domain;
 
 
-import io.github.zealbuquerque.enums.StatusOrgao;
-import io.github.zealbuquerque.enums.TipoOrgao;
+
+import br.com.fiap.teleorg.enums.StatusOrgao;
+import br.com.fiap.teleorg.enums.TipoOrgao;
 
 import javax.persistence.*;
 import java.io.Serializable;
