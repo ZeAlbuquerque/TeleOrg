@@ -1,4 +1,4 @@
-package com.luisrobbo.cursomc.services.exceptions;
+package br.com.fiap.teleorg.service.exeption;
 
 public class ObjectNotFoundException extends RuntimeException {
 
