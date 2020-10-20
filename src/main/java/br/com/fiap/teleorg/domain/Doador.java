@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
 
+
 @Entity
 @Table
 public class Doador implements Serializable {
@@ -27,8 +28,6 @@ public class Doador implements Serializable {
     private Calendar dataNascimento;
 
     @Column(nullable = false, unique = true)
-
-    //@CPF
     private String cpf;
 
     @ManyToOne
