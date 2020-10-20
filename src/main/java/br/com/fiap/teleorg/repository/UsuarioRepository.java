@@ -1,7 +1,8 @@
-package io.github.zealbuquerque.repository;
+package br.com.fiap.teleorg.repository;
 
-import io.github.zealbuquerque.domain.Usuario;
+import br.com.fiap.teleorg.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 }

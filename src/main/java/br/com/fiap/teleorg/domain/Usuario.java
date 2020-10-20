@@ -1,7 +1,8 @@
 package br.com.fiap.teleorg.domain;
 
-import io.github.zealbuquerque.enums.StatusUsuario;
-import io.github.zealbuquerque.enums.TipoUsuario;
+
+import br.com.fiap.teleorg.enums.StatusUsuario;
+import br.com.fiap.teleorg.enums.TipoUsuario;
 
 import javax.persistence.*;
 
