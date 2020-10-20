@@ -46,6 +46,54 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public StatusUsuario getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusUsuario status) {
+        this.status = status;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
