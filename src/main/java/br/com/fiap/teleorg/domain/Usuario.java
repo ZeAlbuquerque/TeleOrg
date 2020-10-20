@@ -2,17 +2,11 @@ package br.com.fiap.teleorg.domain;
 
 import io.github.zealbuquerque.enums.StatusUsuario;
 import io.github.zealbuquerque.enums.TipoUsuario;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Usuario {
 
     @Id
