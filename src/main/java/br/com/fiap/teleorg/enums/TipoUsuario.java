@@ -1,4 +1,4 @@
-package io.github.zealbuquerque.enums;
+package br.com.fiap.teleorg.enums;
 
 public enum TipoUsuario {
 

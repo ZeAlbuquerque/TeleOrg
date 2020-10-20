@@ -13,6 +13,4 @@ public enum TipoSanguineo {
 
     TipoSanguineo(String s) {
     }
-
-
 }
