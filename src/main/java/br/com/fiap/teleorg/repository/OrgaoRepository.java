@@ -1,6 +1,7 @@
-package io.github.zealbuquerque.repository;
+package br.com.fiap.teleorg.repository;
 
-import io.github.zealbuquerque.domain.Orgao;
+
+import br.com.fiap.teleorg.domain.Orgao;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrgaoRepository extends JpaRepository<Orgao, Integer> {
