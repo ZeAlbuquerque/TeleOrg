@@ -24,6 +24,11 @@ public class DoadorService {
     private final DoadorRepository doadorRepository;
     private final HospitalRepository hospitalRepository;
 
+    public DoadorService(DoadorRepository doadorRepositoryrepository, HospitalRepository hospitalRepository) {
+        this.doadorRepository = doadorRepositoryrepository;
+        this.hospitalRepository = hospitalRepository;
+    }
+
 
     @Transactional
     public Doador insert(DoadorDto dto){
@@ -50,16 +55,6 @@ public class DoadorService {
 
         doadorRepository.save(doador);
         return doador;
-    }
-
-    public DoadorService(DoadorRepository doadorRepositoryrepository, HospitalRepository hospitalRepository) {
-        this.doadorRepository = doadorRepositoryrepository;
-        this.hospitalRepository = hospitalRepository;
-    }
-
-    public Doador findById(Integer id){
-        Optional<Doador> doador = doadorRepository.findById(id);
-        return doador.orElseThrow(() -> new ObjectNotFoundException("Doador não encontrado! ID: " + id ));
     }
 
     public Doador findByCpf(String cpf){
