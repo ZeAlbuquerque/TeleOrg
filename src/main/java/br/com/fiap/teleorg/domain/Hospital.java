@@ -14,6 +14,9 @@ public class Hospital implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column(nullable = false)
     private String nome;
 
     //@CNPJ
@@ -39,6 +42,10 @@ public class Hospital implements Serializable {
         this.logradouro = logradouro;
         this.bairro = bairro;
         this.telefone = telefone;
+    }
+
+    public Hospital() {
+
     }
 
 

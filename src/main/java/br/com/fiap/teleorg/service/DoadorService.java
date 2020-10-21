@@ -1,41 +1,76 @@
 package br.com.fiap.teleorg.service;
 
 import br.com.fiap.teleorg.domain.Doador;
+import br.com.fiap.teleorg.domain.Hospital;
+import br.com.fiap.teleorg.dto.DoadorDto;
+import br.com.fiap.teleorg.enums.TipoSanguineo;
 import br.com.fiap.teleorg.repository.DoadorRepository;
+import br.com.fiap.teleorg.repository.HospitalRepository;
 import br.com.fiap.teleorg.service.exeption.DataIntegretyException;
 import br.com.fiap.teleorg.service.exeption.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class DoadorService {
 
-    @Autowired
-    private DoadorRepository repository;
+    private final DoadorRepository doadorRepository;
+    private final HospitalRepository hospitalRepository;
+
+
+    @Transactional
+    public Doador insert(DoadorDto dto){
+        Integer idHospital = dto.getHospital();
+        Hospital hospital = hospitalRepository
+                .findById(idHospital)
+                .orElseThrow(() -> new RegraNegocioException("Código do hospital invalido"));
+
+        Doador doador = new Doador();
+        doador.setNome(dto.getNome());
+        TipoSanguineo tipoSanguineo = TipoSanguineo.valueOf(dto.getTipoSanguineo());
+        doador.setTipoSanguineo(tipoSanguineo);
+        String strDataNascimento = dto.getDataNascimento();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(sdf.parse(strDataNascimento));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        doador.setDataNascimento(cal);
+        doador.setCpf(dto.getCpf());
+        doador.setHospital(hospital);
+
+        doadorRepository.save(doador);
+        return doador;
+    }
+
+    public DoadorService(DoadorRepository doadorRepositoryrepository, HospitalRepository hospitalRepository) {
+        this.doadorRepository = doadorRepositoryrepository;
+        this.hospitalRepository = hospitalRepository;
+    }
 
     public Doador findById(Integer id){
-        Optional<Doador> doador = repository.findById(id);
+        Optional<Doador> doador = doadorRepository.findById(id);
         return doador.orElseThrow(() -> new ObjectNotFoundException("Doador não encontrado! ID: " + id ));
     }
 
     public Doador findByCpf(String cpf){
-        Optional<Doador> doador = Optional.ofNullable(repository.findByCpf(cpf));
+        Optional<Doador> doador = Optional.ofNullable(doadorRepository.findByCpf(cpf));
         return doador.orElseThrow(() -> new ObjectNotFoundException("Doador não encontrado! ID: " + cpf ));
     }
 
     public List<Doador> findAll(){
-        return repository.findAll();
+        return doadorRepository.findAll();
     }
 
-    @Transactional
-    public Doador insert(Doador doador){
-        doador = repository.save(doador);
-        return doador;
-    }
 
     public void updateHospital(Doador doador, Doador newDoador){
         newDoador.setHospital(doador.getHospital());
@@ -44,13 +79,13 @@ public class DoadorService {
     public Doador update (Doador doador){
         Doador newDoador = findByCpf(doador.getCpf());
         updateHospital(doador, newDoador);
-        return repository.save(newDoador);
+        return doadorRepository.save(newDoador);
     }
 
     public void delete(String cpf) {
         Doador doador = findByCpf(cpf);
         try {
-            repository.deleteByCpf(cpf);
+            doadorRepository.deleteByCpf(cpf);
         } catch (DataIntegretyException e){
             throw new DataIntegretyException("Não é possível deletar o doador " + doador.getNome());
         }

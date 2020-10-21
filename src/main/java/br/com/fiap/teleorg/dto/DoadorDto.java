@@ -1,21 +1,75 @@
 package br.com.fiap.teleorg.dto;
 
 
-import br.com.fiap.teleorg.enums.TipoSanguineo;
-
 import javax.validation.constraints.NotNull;
-import java.util.Calendar;
 
 public class DoadorDto {
 
     @NotNull(message = "{campo.nome.obrigatorio}")
     private String nome;
 
-    private TipoSanguineo tipoSanguineo;
+    @NotNull(message = "{campo.tipo-sanguineo.obrigatorio}")
+    private String tipoSanguineo;
 
-    private Calendar dataNascimento;
+    @NotNull(message = "{campo.data-nascimento.obrigatorio}")
+    private String dataNascimento;
 
+    @NotNull(message = "{campo.cpf.obrigatorio}")
     private String cpf;
 
+    @NotNull(message = "{campo.codigo-hospital.obrigatorio}")
     private Integer hospital;
+
+    public DoadorDto() {
+    }
+
+    public DoadorDto(@NotNull(message = "{campo.nome.obrigatorio}") String nome, @NotNull String tipoSanguineo, @NotNull(message = "{campo.data-nascimento.obrigatorio}") String dataNascimento, @NotNull(message = "{campo.cpf.obrigatorio}") String cpf, @NotNull(message = "{campo.codigo-hospital.obrigatorio}") Integer hospital) {
+        this.nome = nome;
+        this.tipoSanguineo = tipoSanguineo;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.hospital = hospital;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getTipoSanguineo() {
+        return tipoSanguineo;
+    }
+
+    public void setTipoSanguineo(String tipoSanguineo) {
+        this.tipoSanguineo = tipoSanguineo;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Integer getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Integer hospital) {
+        this.hospital = hospital;
+    }
+
+
 }

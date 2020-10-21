@@ -4,6 +4,7 @@ import br.com.fiap.teleorg.enums.TipoSanguineo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -34,16 +35,19 @@ public class Doador implements Serializable {
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
+    @OneToMany(mappedBy = "doador")
+    private List<Orgao> orgaos;
 
     public  Doador (){}
 
-    public Doador(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Hospital hospital) {
+    public Doador(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Hospital hospital, List<Orgao> orgaos) {
         this.id = id;
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.hospital = hospital;
+        this.orgaos = orgaos;
     }
 
     public Integer getId() {
@@ -92,6 +96,14 @@ public class Doador implements Serializable {
 
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
+    }
+
+    public List<Orgao> getOrgaos() {
+        return orgaos;
+    }
+
+    public void setOrgaos(List<Orgao> orgaos) {
+        this.orgaos = orgaos;
     }
 
     @Override
