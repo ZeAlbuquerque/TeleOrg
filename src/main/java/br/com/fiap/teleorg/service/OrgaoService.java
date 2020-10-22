@@ -7,10 +7,10 @@ import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
 import br.com.fiap.teleorg.repository.DoadorRepository;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class OrgaoService {
@@ -39,11 +39,17 @@ public class OrgaoService {
         return orgao;
     }
 
-    public List<Orgao> findByDoador(String cpfDoador){
-        Doador doador = doadorService.findByCpf(cpfDoador);
+    public void update(Integer id, Orgao orgao) {
+        orgaoRepository
+                .findById(id)
+                .map(orgaoExistente -> {
+                    orgao.setId(orgaoExistente.getId());
+                    orgaoRepository.save(orgao);
+                    return orgaoExistente;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Orgao não encontrado"));
+    }
 
-        List<Orgao> listaDeOrgaos = new ArrayList<Orgao>();
-        
+    public void delete(Integer id){
 
     }
 
