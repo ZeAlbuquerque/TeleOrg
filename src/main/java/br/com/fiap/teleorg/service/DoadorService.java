@@ -9,6 +9,7 @@ import br.com.fiap.teleorg.repository.HospitalRepository;
 import br.com.fiap.teleorg.service.exeption.DataIntegretyException;
 import br.com.fiap.teleorg.service.exeption.ObjectNotFoundException;
 import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,8 +22,11 @@ import java.util.Optional;
 @Service
 public class DoadorService {
 
-    private final DoadorRepository doadorRepository;
-    private final HospitalRepository hospitalRepository;
+    @Autowired
+    private DoadorRepository doadorRepository;
+
+    @Autowired
+    private HospitalRepository hospitalRepository;
 
     public DoadorService(DoadorRepository doadorRepositoryrepository, HospitalRepository hospitalRepository) {
         this.doadorRepository = doadorRepositoryrepository;
@@ -67,7 +71,7 @@ public class DoadorService {
     }
 
 
-    public void updateHospital(Doador doador, Doador newDoador){
+    private void updateHospital(Doador doador, Doador newDoador){
         newDoador.setHospital(doador.getHospital());
     }
 

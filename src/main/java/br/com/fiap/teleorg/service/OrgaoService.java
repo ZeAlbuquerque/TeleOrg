@@ -7,6 +7,7 @@ import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
 import br.com.fiap.teleorg.repository.DoadorRepository;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +19,10 @@ import java.util.List;
 @Service
 public class OrgaoService {
 
-
+    @Autowired
     private OrgaoRepository orgaoRepository;
+
+    @Autowired
     private DoadorService doadorService;
 
     public OrgaoService(OrgaoRepository orgaoRepository, DoadorRepository doadorRepository, DoadorService doadorService) {
