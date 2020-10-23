@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orgao")
 public class OrgaoController {
@@ -30,6 +32,19 @@ public class OrgaoController {
     public Orgao get(@PathVariable Integer id){
         return service.getOrgaoById(id);
     }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void Delete(@PathVariable Integer id){
+        service.delete(id);
+    }
+
+    @GetMapping("{cpf}")
+    @RequestMapping("/findByCpf")
+    public List<Orgao> findByCpf(@PathVariable String cpf) {
+        return service.findByCpf(cpf);
+    }
+
 
 
 

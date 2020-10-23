@@ -20,13 +20,13 @@ public class PacienteDto {
     @NotNull(message = "{campo.codigo-hospital.obrigatorio}")
     private Integer hospital;
 
-    @NotNull(message = "{campo.is-doador.obrigatorio}")
+    @NotNull(message = "{campo.doador.obrigatorio}")
     private Boolean doador;
 
     public PacienteDto() {
     }
 
-    public PacienteDto(@NotNull(message = "{campo.nome.obrigatorio}") String nome, @NotNull(message = "{campo.tipo-sanguineo.obrigatorio}") String tipoSanguineo, @NotNull(message = "{campo.data-nascimento.obrigatorio}") String dataNascimento, @NotNull(message = "{campo.cpf.obrigatorio}") String cpf, @NotNull(message = "{campo.codigo-hospital.obrigatorio}") Integer hospital, @NotNull(message = "{campo.is-doador.obrigatorio}") Boolean doador) {
+    public PacienteDto(@NotNull(message = "{campo.nome.obrigatorio}") String nome, @NotNull(message = "{campo.tipo-sanguineo.obrigatorio}") String tipoSanguineo, @NotNull(message = "{campo.data-nascimento.obrigatorio}") String dataNascimento, @NotNull(message = "{campo.cpf.obrigatorio}") String cpf, @NotNull(message = "{campo.codigo-hospital.obrigatorio}") Integer hospital, @NotNull(message = "{campo.doador.obrigatorio}") Boolean doador) {
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
         this.dataNascimento = dataNascimento;
@@ -80,6 +80,6 @@ public class PacienteDto {
     }
 
     public void setDoador(Boolean doador) {
-        doador = doador;
+        this.doador = doador;
     }
 }

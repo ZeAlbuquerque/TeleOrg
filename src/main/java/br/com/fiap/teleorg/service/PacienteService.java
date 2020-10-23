@@ -7,10 +7,11 @@ import br.com.fiap.teleorg.enums.TipoSanguineo;
 import br.com.fiap.teleorg.repository.HospitalRepository;
 import br.com.fiap.teleorg.repository.PacienteRepository;
 import br.com.fiap.teleorg.service.exeption.DataIntegretyException;
-import br.com.fiap.teleorg.service.exeption.ObjectNotFoundException;
 import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -62,7 +63,7 @@ public class PacienteService {
 
     public Paciente findByCpf(String cpf){
         Optional<Paciente> paciente = Optional.ofNullable(pacienteRepository.findByCpf(cpf));
-        return paciente.orElseThrow(() -> new ObjectNotFoundException("Paciente não encontrado! ID: " + cpf ));
+        return paciente.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Paciente não encontrado! ID: " + cpf ));
     }
 
 

@@ -32,7 +32,7 @@ public class Paciente implements Serializable {
     private String cpf;
 
     @Column(nullable = false)
-    private Boolean isDoador;
+    private Boolean doador;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
@@ -43,13 +43,13 @@ public class Paciente implements Serializable {
 
     public  Paciente (){}
 
-    public Paciente(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean isDoador, Hospital hospital, List<Orgao> orgaos) {
+    public Paciente(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean doador, Hospital hospital, List<Orgao> orgaos) {
         this.id = id;
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
-        this.isDoador = isDoador;
+        this.doador = doador;
         this.hospital = hospital;
         this.orgaos = orgaos;
     }
@@ -111,11 +111,11 @@ public class Paciente implements Serializable {
     }
 
     public Boolean getDoador() {
-        return isDoador;
+        return doador;
     }
 
     public void setDoador(Boolean doador) {
-        isDoador = doador;
+        this.doador = doador;
     }
 
     @Override
