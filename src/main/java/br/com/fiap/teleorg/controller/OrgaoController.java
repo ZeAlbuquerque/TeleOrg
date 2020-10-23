@@ -26,7 +26,15 @@ public class OrgaoController {
         service.update(id,orgao);
     }
 
-    
+    @GetMapping("{id}")
+    public Orgao get(@PathVariable Integer id){
+        return service.getOrgaoById(id);
+    }
+
+
+
+
+
 
 
 }

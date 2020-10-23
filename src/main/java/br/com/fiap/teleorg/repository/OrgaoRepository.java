@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface OrgaoRepository extends JpaRepository<Orgao, Integer> {
 
-    List<Orgao> findByDoador(@Param("id") Integer id);
+    List<Orgao> findByPaciente(@Param("id") Integer id);
 
 }

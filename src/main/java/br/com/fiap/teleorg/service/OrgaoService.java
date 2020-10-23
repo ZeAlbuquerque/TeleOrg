@@ -1,11 +1,10 @@
 package br.com.fiap.teleorg.service;
 
-import br.com.fiap.teleorg.domain.Doador;
 import br.com.fiap.teleorg.domain.Orgao;
+import br.com.fiap.teleorg.domain.Paciente;
 import br.com.fiap.teleorg.dto.OrgaoDto;
 import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
-import br.com.fiap.teleorg.repository.DoadorRepository;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,20 +19,20 @@ public class OrgaoService {
 
 
     private OrgaoRepository orgaoRepository;
-    private DoadorService doadorService;
+    private PacienteService pacienteService;
 
-    public OrgaoService(OrgaoRepository orgaoRepository, DoadorRepository doadorRepository, DoadorService doadorService) {
+    public OrgaoService(OrgaoRepository orgaoRepository, PacienteService PacienteRepository, PacienteService pacienteService) {
         this.orgaoRepository = orgaoRepository;
-        this.doadorService = doadorService;
+        this.pacienteService = pacienteService;
     }
 
     @Transactional
     public Orgao insert(OrgaoDto dto) {
-        String doadorCpf = dto.getCpfDoador();
-        Doador doador = doadorService.findByCpf(doadorCpf);
+        String PacienteCpf = dto.getCpfPaciente();
+        Paciente Paciente = pacienteService.findByCpf(PacienteCpf);
 
         Orgao orgao = new Orgao();
-        orgao.setDoador(doador);
+        orgao.setPaciente(Paciente);
         TipoOrgao tipoOrgao = TipoOrgao.valueOf(dto.getTipoOrgao());
         orgao.setTipoOrgao(tipoOrgao);
         orgao.setStatusOrgao(StatusOrgao.AGUARDANDO_RECEPTOR);
@@ -69,10 +68,10 @@ public class OrgaoService {
 
 
     public List<Orgao> findByCpf(String cpf){
-        Doador doador = doadorService.findByCpf(cpf);
+        Paciente Paciente = pacienteService.findByCpf(cpf);
 
         List<Orgao> orgaos = new ArrayList<>();
-        orgaos.addAll(orgaoRepository.findByDoador(doador.getId()));
+        orgaos.addAll(orgaoRepository.findByPaciente(Paciente.getId()));
 
         return orgaos;
     }
