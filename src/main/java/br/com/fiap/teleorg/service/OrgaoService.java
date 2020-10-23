@@ -7,13 +7,12 @@ import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
 import br.com.fiap.teleorg.repository.DoadorRepository;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -68,21 +67,17 @@ public class OrgaoService {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
     }
 
+
     public List<Orgao> findByCpf(String cpf){
         Doador doador = doadorService.findByCpf(cpf);
 
+        List<Orgao> orgaos = new ArrayList<>();
+        orgaos.addAll(orgaoRepository.findByDoador(doador.getId()));
+
+        return orgaos;
     }
 
-    public List<Orgao> find (Orgao filtro) {
-        ExampleMatcher matcher = ExampleMatcher
-                .matching()
-                .withIgnoreCase()
-                .withStringMatcher(
-                        ExampleMatcher.StringMatcher.CONTAINING);
 
-        Example example = Example.of(filtro, matcher);
-        return OrgaoRepository.findAll(example);
-    }
 
 
 }

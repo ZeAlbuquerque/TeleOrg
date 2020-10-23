@@ -17,7 +17,7 @@ public class DoadorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Doador save(@RequestBody DoadorDto dto){
+    public Doador insert(@RequestBody DoadorDto dto){
         Doador doador = service.insert(dto);
         return doador;
     }
