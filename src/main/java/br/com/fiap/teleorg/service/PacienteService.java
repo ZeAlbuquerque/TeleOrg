@@ -41,6 +41,7 @@ public class PacienteService {
 
         Paciente paciente = new Paciente();
         paciente.setNome(dto.getNome());
+        paciente.setDoador(dto.getDoador());
         TipoSanguineo tipoSanguineo = TipoSanguineo.valueOf(dto.getTipoSanguineo());
         paciente.setTipoSanguineo(tipoSanguineo);
         String strDataNascimento = dto.getDataNascimento();

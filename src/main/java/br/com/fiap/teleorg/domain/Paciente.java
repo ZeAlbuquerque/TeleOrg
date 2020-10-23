@@ -110,6 +110,14 @@ public class Paciente implements Serializable {
         this.orgaos = orgaos;
     }
 
+    public Boolean getDoador() {
+        return isDoador;
+    }
+
+    public void setDoador(Boolean doador) {
+        isDoador = doador;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
