@@ -5,22 +5,22 @@ import javax.validation.constraints.NotNull;
 public class OrgaoDto {
 
     @NotNull(message = "{campo.tipo-orgao.obrigatorio}")
-    private String TipoOrgao;
+    private String tipoOrgao;
 
     @NotNull(message = "{campo.cpf-paciente.obrigatorio}")
     private String cpfPaciente;
 
     public OrgaoDto(@NotNull(message = "{campo.tipo-orgao.obrigatorio}") String tipoOrgao, @NotNull(message = "{campo.cpf-doador.obrigatorio}") String cpfDoador) {
-        TipoOrgao = tipoOrgao;
+        this.tipoOrgao = tipoOrgao;
         this.cpfPaciente = cpfDoador;
     }
 
     public String getTipoOrgao() {
-        return TipoOrgao;
+        return tipoOrgao;
     }
 
     public void setTipoOrgao(String tipoOrgao) {
-        TipoOrgao = tipoOrgao;
+        this.tipoOrgao = tipoOrgao;
     }
 
     public String getCpfPaciente() {

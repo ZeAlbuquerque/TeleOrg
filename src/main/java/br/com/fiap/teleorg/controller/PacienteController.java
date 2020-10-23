@@ -18,8 +18,8 @@ public class PacienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Paciente insert(@RequestBody PacienteDto dto){
-        Paciente Paciente = service.insert(dto);
-        return Paciente;
+        Paciente paciente = service.insert(dto);
+        return paciente;
     }
 
 }

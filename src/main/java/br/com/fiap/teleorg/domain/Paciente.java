@@ -1,10 +1,10 @@
 package br.com.fiap.teleorg.domain;
 
 import br.com.fiap.teleorg.enums.TipoSanguineo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -38,12 +38,9 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-    @OneToMany(mappedBy = "paciente")
-    private List<Orgao> orgaos;
-
     public  Paciente (){}
 
-    public Paciente(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean doador, Hospital hospital, List<Orgao> orgaos) {
+    public Paciente(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean doador, Hospital hospital) {
         this.id = id;
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
@@ -51,7 +48,6 @@ public class Paciente implements Serializable {
         this.cpf = cpf;
         this.doador = doador;
         this.hospital = hospital;
-        this.orgaos = orgaos;
     }
 
     public Integer getId() {
@@ -102,15 +98,7 @@ public class Paciente implements Serializable {
         this.hospital = hospital;
     }
 
-    public List<Orgao> getOrgaos() {
-        return orgaos;
-    }
-
-    public void setOrgaos(List<Orgao> orgaos) {
-        this.orgaos = orgaos;
-    }
-
-    public Boolean getDoador() {
+   public Boolean getDoador() {
         return doador;
     }
 
