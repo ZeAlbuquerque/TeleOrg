@@ -19,15 +19,15 @@ public class Doacao implements Serializable {
     private Orgao orgao;
 
     @ManyToOne
-    @JoinColumn(name = "receptor_id")
-    private Receptor receptor;
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
 
     public Doacao(){}
 
-    public Doacao(Integer id, Orgao orgao, Receptor receptor) {
+    public Doacao(Integer id, Orgao orgao, Paciente paciente) {
         this.id = id;
         this.orgao = orgao;
-        this.receptor = receptor;
+        this.paciente = paciente;
     }
 
     public Integer getId() {
@@ -46,12 +46,12 @@ public class Doacao implements Serializable {
         this.orgao = orgao;
     }
 
-    public Receptor getReceptor() {
-        return receptor;
+    public Paciente getpaciente() {
+        return paciente;
     }
 
-    public void setReceptor(Receptor receptor) {
-        this.receptor = receptor;
+    public void setpaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

@@ -29,15 +29,15 @@ public class Orgao implements Serializable {
     private StatusOrgao statusOrgao;
 
     @ManyToOne
-    @JoinColumn(name = "doador_id")
-    private Doador doador;
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
 
     public Orgao () {};
-    public Orgao(Integer id, TipoOrgao tipoOrgao, StatusOrgao statusOrgao, Doador doador) {
+    public Orgao(Integer id, TipoOrgao tipoOrgao, StatusOrgao statusOrgao, Paciente Paciente) {
         this.id = id;
         this.tipoOrgao = tipoOrgao;
         this.statusOrgao = statusOrgao;
-        this.doador = doador;
+        this.paciente = Paciente;
     }
 
     public Integer getId() {
@@ -64,12 +64,12 @@ public class Orgao implements Serializable {
         this.statusOrgao = statusOrgao;
     }
 
-    public Doador getDoador() {
-        return doador;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setDoador(Doador doador) {
-        this.doador = doador;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

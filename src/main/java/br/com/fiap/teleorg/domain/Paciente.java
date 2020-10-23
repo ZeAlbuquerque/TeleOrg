@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table
-public class Doador implements Serializable {
+public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,21 +31,25 @@ public class Doador implements Serializable {
     @Column(nullable = false, unique = true)
     private String cpf;
 
+    @Column(nullable = false)
+    private Boolean isDoador;
+
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-    @OneToMany(mappedBy = "doador")
+    @OneToMany(mappedBy = "paciente")
     private List<Orgao> orgaos;
 
-    public  Doador (){}
+    public  Paciente (){}
 
-    public Doador(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Hospital hospital, List<Orgao> orgaos) {
+    public Paciente(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean isDoador, Hospital hospital, List<Orgao> orgaos) {
         this.id = id;
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
+        this.isDoador = isDoador;
         this.hospital = hospital;
         this.orgaos = orgaos;
     }
@@ -109,9 +113,9 @@ public class Doador implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Doador)) return false;
-        Doador doador = (Doador) o;
-        return getId().equals(doador.getId());
+        if (!(o instanceof Paciente)) return false;
+        Paciente paciente = (Paciente) o;
+        return getId().equals(paciente.getId());
     }
 
     @Override

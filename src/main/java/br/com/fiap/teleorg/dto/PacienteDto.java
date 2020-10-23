@@ -3,7 +3,7 @@ package br.com.fiap.teleorg.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class DoadorDto {
+public class PacienteDto {
 
     @NotNull(message = "{campo.nome.obrigatorio}")
     private String nome;
@@ -20,10 +20,13 @@ public class DoadorDto {
     @NotNull(message = "{campo.codigo-hospital.obrigatorio}")
     private Integer hospital;
 
-    public DoadorDto() {
+    @NotNull(message = "{campo.is-doador.obrigatorio}")
+    private Boolean isDoador;
+
+    public PacienteDto() {
     }
 
-    public DoadorDto(@NotNull(message = "{campo.nome.obrigatorio}") String nome, @NotNull String tipoSanguineo, @NotNull(message = "{campo.data-nascimento.obrigatorio}") String dataNascimento, @NotNull(message = "{campo.cpf.obrigatorio}") String cpf, @NotNull(message = "{campo.codigo-hospital.obrigatorio}") Integer hospital) {
+    public PacienteDto(@NotNull(message = "{campo.nome.obrigatorio}") String nome, @NotNull String tipoSanguineo, @NotNull(message = "{campo.data-nascimento.obrigatorio}") String dataNascimento, @NotNull(message = "{campo.cpf.obrigatorio}") String cpf, @NotNull(message = "{campo.codigo-hospital.obrigatorio}") Integer hospital) {
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
         this.dataNascimento = dataNascimento;
