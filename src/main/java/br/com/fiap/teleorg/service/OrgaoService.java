@@ -7,17 +7,21 @@ import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
 import br.com.fiap.teleorg.repository.DoadorRepository;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class OrgaoService {
 
 
-    private final OrgaoRepository orgaoRepository;
-    private final DoadorService doadorService;
+    private OrgaoRepository orgaoRepository;
+    private DoadorService doadorService;
 
     public OrgaoService(OrgaoRepository orgaoRepository, DoadorRepository doadorRepository, DoadorService doadorService) {
         this.orgaoRepository = orgaoRepository;
@@ -50,7 +54,34 @@ public class OrgaoService {
     }
 
     public void delete(Integer id){
+        orgaoRepository
+                .findById(id)
+                .map(orgao -> {
+                    orgaoRepository.delete(orgao);
+                    return orgao;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Orgao não encontrado"));
+    }
 
+    public Orgao getOrgaoById (Integer id) {
+        return orgaoRepository
+                .findById(id)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
+    }
+
+    public List<Orgao> findByCpf(String cpf){
+        Doador doador = doadorService.findByCpf(cpf);
+
+    }
+
+    public List<Orgao> find (Orgao filtro) {
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(
+                        ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example example = Example.of(filtro, matcher);
+        return OrgaoRepository.findAll(example);
     }
 
 
