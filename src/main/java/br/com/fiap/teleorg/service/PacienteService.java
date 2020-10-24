@@ -42,16 +42,20 @@ public class PacienteService {
         Paciente paciente = new Paciente();
         paciente.setNome(dto.getNome());
         paciente.setDoador(dto.getDoador());
+
         TipoSanguineo tipoSanguineo = TipoSanguineo.valueOf(dto.getTipoSanguineo());
         paciente.setTipoSanguineo(tipoSanguineo);
+
         String strDataNascimento = dto.getDataNascimento();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
+
         try {
             cal.setTime(sdf.parse(strDataNascimento));
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         paciente.setDataNascimento(cal);
         paciente.setCpf(dto.getCpf());
         paciente.setHospital(hospital);

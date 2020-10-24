@@ -1,6 +1,8 @@
 package br.com.fiap.teleorg.domain;
 
 
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,8 +21,8 @@ public class Hospital implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    //@CNPJ
     @Column(nullable = false)
+    @CNPJ
     private String cnpj;
 
     @Column(nullable = false)

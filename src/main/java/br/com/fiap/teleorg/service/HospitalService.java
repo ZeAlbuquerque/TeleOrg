@@ -4,7 +4,9 @@ import br.com.fiap.teleorg.domain.Hospital;
 import br.com.fiap.teleorg.repository.HospitalRepository;
 import br.com.fiap.teleorg.service.exeption.DataIntegretyException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 
@@ -14,9 +16,12 @@ public class HospitalService {
     @Autowired
     private HospitalRepository repository;
 
-    public Object findById(Integer id){
-       return repository.findById(id);
+    public Hospital findById (Integer id) {
+        return repository
+                .findById(id)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
     }
+
 
     public Hospital findByNome (String nome){
         return repository.findByNome(nome);

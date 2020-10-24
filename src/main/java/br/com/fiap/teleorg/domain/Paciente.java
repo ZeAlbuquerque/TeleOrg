@@ -1,6 +1,7 @@
 package br.com.fiap.teleorg.domain;
 
 import br.com.fiap.teleorg.enums.TipoSanguineo;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ public class Paciente implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
@@ -29,6 +30,7 @@ public class Paciente implements Serializable {
     private Calendar dataNascimento;
 
     @Column(nullable = false, unique = true)
+    @CPF
     private String cpf;
 
     @Column(nullable = false)
@@ -40,8 +42,7 @@ public class Paciente implements Serializable {
 
     public  Paciente (){}
 
-    public Paciente(Integer id, String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean doador, Hospital hospital) {
-        this.id = id;
+    public Paciente(String nome, TipoSanguineo tipoSanguineo, Calendar dataNascimento, String cpf, Boolean doador, Hospital hospital) {
         this.nome = nome;
         this.tipoSanguineo = tipoSanguineo;
         this.dataNascimento = dataNascimento;
