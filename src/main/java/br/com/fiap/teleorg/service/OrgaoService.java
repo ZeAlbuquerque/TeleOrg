@@ -81,10 +81,10 @@ public class OrgaoService {
     }
 
 
-    public List<Orgao> findByCpf(String cpf){
+    public List<Orgao> findByCpfDoador(String cpf){
         Paciente doador = pacienteService.findByCpf(cpf);
 
-        List<Orgao> orgaos = new ArrayList<>();
+        List<Orgao> orgaos = new ArrayList<Orgao>();
         orgaos.addAll(orgaoRepository.findByPaciente(doador.getId()));
 
         return orgaos;
