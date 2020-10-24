@@ -6,6 +6,7 @@ import br.com.fiap.teleorg.dto.OrgaoDto;
 import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
+import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class OrgaoService {
     @Autowired
     private PacienteService pacienteService;
 
+
     public OrgaoService(OrgaoRepository orgaoRepository, PacienteService pacienteService, PacienteService PacienteService) {
         this.orgaoRepository = orgaoRepository;
         this.pacienteService = pacienteService;
@@ -32,16 +34,21 @@ public class OrgaoService {
     @Transactional
     public Orgao insert(OrgaoDto dto) {
         String doadorCpf = dto.getCpfPaciente();
-        Paciente paciente = pacienteService.findByCpf(doadorCpf);
+        Paciente doador = pacienteService.findByCpf(doadorCpf);
 
-        Orgao orgao = new Orgao();
-        orgao.setPaciente(paciente);
-        TipoOrgao tipoOrgao = TipoOrgao.valueOf(dto.getTipoOrgao());
-        orgao.setTipoOrgao(tipoOrgao);
-        orgao.setStatusOrgao(StatusOrgao.AGUARDANDO_RECEPTOR);
+        if(doador != null) {
+            Orgao orgao = new Orgao();
+            orgao.setPaciente(doador);
+            TipoOrgao tipoOrgao = TipoOrgao.valueOf(dto.getTipoOrgao());
+            orgao.setTipoOrgao(tipoOrgao);
+            orgao.setStatusOrgao(StatusOrgao.AGUARDANDO_RECEPTOR);
 
-        orgaoRepository.save(orgao);
-        return orgao;
+            orgaoRepository.save(orgao);
+            return orgao;
+        }
+        else{
+            throw new RegraNegocioException("Doador não encontrado");
+        }
     }
 
     public void update(Integer id, Orgao orgao) {
