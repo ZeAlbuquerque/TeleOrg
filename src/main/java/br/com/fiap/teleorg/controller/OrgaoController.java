@@ -22,29 +22,35 @@ public class OrgaoController {
         return service.insert(dto);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable Integer id, @RequestBody Orgao orgao){
         service.update(id,orgao);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Orgao get(@PathVariable Integer id){
         return service.getOrgaoById(id);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void Delete(@PathVariable Integer id){
         service.delete(id);
     }
 
-    @GetMapping("{cpf}")
-    @RequestMapping("/findByCpf")
+    @GetMapping(value = "/findByCpf/{cpf}")
     public List<Orgao> findByCpf(@PathVariable String cpf) {
         return service.findByCpf(cpf);
     }
 
+    /*@GetMapping(value = "/findByCpf/")
+    public ResponseEntity<?> findByCpf(
+            @RequestParam(value = "cpf", defaultValue = "-") String cpf) throws Exception {
+
+        return ResponseEntity.ok().body(service.findByCpf(cpf));
+    }
+*/
 
 
 

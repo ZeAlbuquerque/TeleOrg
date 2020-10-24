@@ -34,8 +34,7 @@ public class Orgao implements Serializable {
 
     public Orgao () {};
 
-    public Orgao(Integer id, TipoOrgao tipoOrgao, StatusOrgao statusOrgao, Paciente paciente) {
-        this.id = id;
+    public Orgao(TipoOrgao tipoOrgao, StatusOrgao statusOrgao, Paciente paciente) {
         this.tipoOrgao = tipoOrgao;
         this.statusOrgao = statusOrgao;
         this.paciente = paciente;

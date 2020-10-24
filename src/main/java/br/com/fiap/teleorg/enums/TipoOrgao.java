@@ -6,5 +6,10 @@ public enum TipoOrgao {
     CORACAO,
     CORNEA,
     FIGADO,
-    PULMAO
+    PULMAO,
+    PANCREAS,
+    PELE,
+    OSSOS,
+    MEDULA,
+    INTESTINO
 }

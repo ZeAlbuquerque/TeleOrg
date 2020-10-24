@@ -41,6 +41,12 @@ public class DoacaoService {
 
         }
 
+        if (!orgao.getStatusOrgao().equals(StatusOrgao.AGUARDANDO_RECEPTOR)) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Este orgão não pode ser doado");
+
+        }
+
+
         if (orgao.getPaciente().getTipoSanguineo().equals(receptor.getTipoSanguineo())) {
 
             Doacao doacao = new Doacao();

@@ -37,14 +37,18 @@ public class OrgaoService {
         Paciente doador = pacienteService.findByCpf(doadorCpf);
 
         if(doador != null) {
-            Orgao orgao = new Orgao();
-            orgao.setPaciente(doador);
-            TipoOrgao tipoOrgao = TipoOrgao.valueOf(dto.getTipoOrgao());
-            orgao.setTipoOrgao(tipoOrgao);
-            orgao.setStatusOrgao(StatusOrgao.AGUARDANDO_RECEPTOR);
+            if(doador.getDoador()) {
+                Orgao orgao = new Orgao();
+                orgao.setPaciente(doador);
+                TipoOrgao tipoOrgao = TipoOrgao.valueOf(dto.getTipoOrgao());
+                orgao.setTipoOrgao(tipoOrgao);
+                orgao.setStatusOrgao(StatusOrgao.AGUARDANDO_RECEPTOR);
 
-            orgaoRepository.save(orgao);
-            return orgao;
+                orgaoRepository.save(orgao);
+                return orgao;
+            }else{
+                throw  new RegraNegocioException("Paciente não é um doador");
+            }
         }
         else{
             throw new RegraNegocioException("Doador não encontrado");
@@ -73,7 +77,7 @@ public class OrgaoService {
     public Orgao getOrgaoById (Integer id) {
         return orgaoRepository
                 .findById(id)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Orgao não encontrado"));
     }
 
 
