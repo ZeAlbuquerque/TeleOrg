@@ -69,10 +69,6 @@ public class PacienteService {
         return paciente;
     }
 
-    /*public Paciente findByCpf(String cpf){
-        Optional<Paciente> paciente = Optional.ofNullable(pacienteRepository.findByCpf(cpf));
-        return paciente.orElseThrow(() -> new ObjectNotFoundException("Paciente não encontrado! ID: " + cpf ));
-    }*/
 
     public Paciente findById(Integer id){
         return pacienteRepository

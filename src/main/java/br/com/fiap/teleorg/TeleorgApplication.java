@@ -19,9 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 @SpringBootApplication
 @RestController
@@ -168,15 +166,6 @@ public class TeleorgApplication {
             orgaoRepository.save(new Orgao(TipoOrgao.OSSOS, StatusOrgao.AGUARDANDO_RECEPTOR, pacienteService.findById(5)));
             orgaoRepository.save(new Orgao(TipoOrgao.PANCREAS, StatusOrgao.AGUARDANDO_RECEPTOR, pacienteService.findById(5)));
             orgaoRepository.save(new Orgao(TipoOrgao.PELE, StatusOrgao.AGUARDANDO_RECEPTOR, pacienteService.findById(5)));
-
-            List<Orgao> orgaos = new ArrayList<Orgao>();
-            orgaos.addAll(orgaoRepository.findByPaciente(1));
-
-            for(int x = 0; x < orgaos.size(); x++){
-                System.out.println(orgaos.get(1));
-            }
-
-
 
 
         };

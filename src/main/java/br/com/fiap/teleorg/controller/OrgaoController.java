@@ -28,12 +28,6 @@ public class OrgaoController {
         return service.insert(dto);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Integer id, @RequestBody Orgao orgao) {
-        service.update(id, orgao);
-    }
-
     @GetMapping("/{id}")
     public Orgao get(@PathVariable Integer id) {
         return service.getOrgaoById(id);

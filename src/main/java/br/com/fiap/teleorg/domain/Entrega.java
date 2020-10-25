@@ -1,5 +1,7 @@
 package br.com.fiap.teleorg.domain;
 
+import br.com.fiap.teleorg.enums.StatusEntrega;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,17 +16,21 @@ public class Entrega implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
     private Calendar dataHoraEntregaPrevista;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDate dataHoraEntrega;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "id_doacao")
     private Doacao doacao;
+
+    @Column(nullable = false)
+    private StatusEntrega statusEntrega;
 
     @ManyToOne
     @JoinColumn(name = "id_hospital")
@@ -32,11 +38,11 @@ public class Entrega implements Serializable {
 
     public Entrega (){}
 
-    public Entrega(Integer id, Calendar dataHoraEntregaPrevista, LocalDate dataHoraEntrega, Doacao doacao, Hospital hospital) {
-        this.id = id;
+    public Entrega(Calendar dataHoraEntregaPrevista, LocalDate dataHoraEntrega, Doacao doacao, StatusEntrega statusEntrega, Hospital hospital) {
         this.dataHoraEntregaPrevista = dataHoraEntregaPrevista;
         this.dataHoraEntrega = dataHoraEntrega;
         this.doacao = doacao;
+        this.statusEntrega = statusEntrega;
         this.hospital = hospital;
     }
 
@@ -78,6 +84,14 @@ public class Entrega implements Serializable {
 
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
+    }
+
+    public StatusEntrega getStatusEntrega() {
+        return statusEntrega;
+    }
+
+    public void setStatusEntrega(StatusEntrega statusEntrega) {
+        this.statusEntrega = statusEntrega;
     }
 
     @Override
