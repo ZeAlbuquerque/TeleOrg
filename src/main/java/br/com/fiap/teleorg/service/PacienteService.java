@@ -8,7 +8,6 @@ import br.com.fiap.teleorg.repository.HospitalRepository;
 import br.com.fiap.teleorg.repository.PacienteRepository;
 import br.com.fiap.teleorg.service.exeption.DataIntegretyException;
 import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,10 +20,8 @@ import java.util.Calendar;
 @Service
 public class PacienteService {
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
-    @Autowired
-    private  HospitalRepository hospitalRepository;
+    private final PacienteRepository pacienteRepository;
+    private final HospitalRepository hospitalRepository;
 
     public PacienteService(PacienteRepository pacienteRepository, HospitalRepository hospitalRepository) {
         this.pacienteRepository = pacienteRepository;
@@ -60,25 +57,25 @@ public class PacienteService {
         return paciente;
     }
 
-    public Paciente findByCpf(String cpf){
-        Paciente paciente =  pacienteRepository.findByCpf(cpf);
+    public Paciente findByCpf(String cpf) {
+        Paciente paciente = pacienteRepository.findByCpf(cpf);
         return paciente;
     }
 
 
-    public Paciente findById(Integer id){
+    public Paciente findById(Integer id) {
         return pacienteRepository
                 .findById(id)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Paciente não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
     }
 
 
-    public void updateHospital(Paciente Paciente, Paciente newPaciente){
+    public void updateHospital(Paciente Paciente, Paciente newPaciente) {
         newPaciente.setHospital(Paciente.getHospital());
     }
 
     @Transactional
-    public Paciente update (Paciente Paciente){
+    public Paciente update(Paciente Paciente) {
         Paciente newPaciente = findByCpf(Paciente.getCpf());
         updateHospital(Paciente, newPaciente);
         return pacienteRepository.save(newPaciente);
@@ -89,12 +86,10 @@ public class PacienteService {
         Paciente Paciente = findByCpf(cpf);
         try {
             pacienteRepository.deleteByCpf(cpf);
-        } catch (DataIntegretyException e){
+        } catch (DataIntegretyException e) {
             throw new DataIntegretyException("Não é possível deletar o Paciente " + Paciente.getNome());
         }
     }
-
-
 
 
 }

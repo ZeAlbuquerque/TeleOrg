@@ -1,6 +1,8 @@
 package br.com.fiap.teleorg.domain;
 
 
+import br.com.fiap.teleorg.enums.StatusDoacao;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,14 +20,19 @@ public class Doacao implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Orgao orgao;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusDoacao statusDoacao;
+
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente receptor;
 
     public Doacao(){}
 
-    public Doacao(Orgao orgao, Paciente receptor) {
+    public Doacao(Orgao orgao, StatusDoacao statusDoacao, Paciente receptor) {
         this.orgao = orgao;
+        this.statusDoacao = statusDoacao;
         this.receptor = receptor;
     }
 
@@ -51,6 +58,14 @@ public class Doacao implements Serializable {
 
     public void setReceptor(Paciente receptor) {
         this.receptor = receptor;
+    }
+
+    public StatusDoacao getStatusDoacao() {
+        return statusDoacao;
+    }
+
+    public void setStatusDoacao(StatusDoacao statusDoacao) {
+        this.statusDoacao = statusDoacao;
     }
 
     @Override

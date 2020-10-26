@@ -46,7 +46,7 @@ public class HospitalService {
     }
 
     public Hospital update (Hospital hospital){
-        Hospital newHospital = (Hospital) findById(hospital.getId());
+        Hospital newHospital = findById(hospital.getId());
         updateHospital(newHospital, hospital);
         return repository.save(newHospital);
     }

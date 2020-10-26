@@ -44,8 +44,6 @@ public class Usuario implements Serializable {
         this.email = email;
         this.status = status;
         this.tipo = tipo;
-
-
     }
 
     public Integer getId() {

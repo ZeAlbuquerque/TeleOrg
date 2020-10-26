@@ -30,6 +30,7 @@ public class Entrega implements Serializable {
     private Doacao doacao;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private StatusEntrega statusEntrega;
 
     @ManyToOne

@@ -81,7 +81,7 @@ public class EntregaService {
             try {
                 entregaRepository.save(entregaAtualizada);
             } catch (DataIntegrityViolationException e) {
-                new DataIntegrityViolationException("Não é possivel cancelar a entrega: " + entregaAtualizada.getId());
+                throw new DataIntegrityViolationException("Não é possivel cancelar a entrega: " + entregaAtualizada.getId());
             }
         }
     }
@@ -99,7 +99,7 @@ public class EntregaService {
                 entregaAtualizada.setStatusEntrega(StatusEntrega.valueOf(dto.getNovoStatus()));
                 entregaRepository.save(entregaAtualizada);
             } catch (DataIntegrityViolationException e) {
-                new DataIntegrityViolationException("Não é possivel cancelar a entrega: " + entregaAtualizada.getId());
+                throw new DataIntegrityViolationException("Não é possivel cancelar a entrega: " + entregaAtualizada.getId());
             }
         }
     }

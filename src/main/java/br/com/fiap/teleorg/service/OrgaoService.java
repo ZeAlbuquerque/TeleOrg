@@ -7,7 +7,6 @@ import br.com.fiap.teleorg.enums.StatusOrgao;
 import br.com.fiap.teleorg.enums.TipoOrgao;
 import br.com.fiap.teleorg.repository.OrgaoRepository;
 import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +18,12 @@ import java.util.List;
 @Service
 public class OrgaoService {
 
-    @Autowired
-    private OrgaoRepository orgaoRepository;
+    private final OrgaoRepository orgaoRepository;
 
-    @Autowired
-    private PacienteService pacienteService;
+    private final PacienteService pacienteService;
 
 
-    public OrgaoService(OrgaoRepository orgaoRepository, PacienteService pacienteService, PacienteService PacienteService) {
+    public OrgaoService(OrgaoRepository orgaoRepository, PacienteService pacienteService) {
         this.orgaoRepository = orgaoRepository;
         this.pacienteService = pacienteService;
     }
@@ -39,7 +36,7 @@ public class OrgaoService {
         if(doador != null) {
             if(doador.getDoador()) {
                 Orgao orgao = new Orgao();
-                orgao.setPaciente(doador);
+                orgao.setDoador(doador);
                 TipoOrgao tipoOrgao = TipoOrgao.valueOf(dto.getTipoOrgao());
                 orgao.setTipoOrgao(tipoOrgao);
                 orgao.setStatusOrgao(StatusOrgao.AGUARDANDO_RECEPTOR);
@@ -55,6 +52,7 @@ public class OrgaoService {
         }
     }
 
+    @Transactional
     public void update(Integer id, Orgao orgao) {
         orgaoRepository
                 .findById(id)
@@ -65,6 +63,7 @@ public class OrgaoService {
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Orgao não encontrado"));
     }
 
+    @Transactional
     public void delete(Integer id){
         orgaoRepository
                 .findById(id)
@@ -84,8 +83,7 @@ public class OrgaoService {
     public List<Orgao> findByCpfDoador(String cpf){
         Paciente doador = pacienteService.findByCpf(cpf);
 
-        List<Orgao> orgaos = new ArrayList<Orgao>();
-        orgaos.addAll(orgaoRepository.findOrgaoByPacienteId(doador.getId()));
+        List<Orgao> orgaos = new ArrayList<>(orgaoRepository.findOrgaoByDoadorId(doador.getId()));
 
         return orgaos;
     }

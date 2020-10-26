@@ -14,6 +14,6 @@ public interface OrgaoRepository extends JpaRepository<Orgao, Integer> {
     /*@Query(value = "select * from orgao o where o.paciente_id = :id ", nativeQuery = true)
     List<Orgao> findByPaciente(@Param("id") Integer id);*/
 
-    List<Orgao> findOrgaoByPacienteId(@Param("id") Integer id);
+    List<Orgao> findOrgaoByDoadorId(@Param("id") Integer id);
 
 }
