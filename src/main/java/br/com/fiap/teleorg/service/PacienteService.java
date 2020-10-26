@@ -33,7 +33,7 @@ public class PacienteService {
 
 
     @Transactional
-    public Paciente insert(PacienteDto dto){
+    public Paciente insert(PacienteDto dto) throws ParseException {
         Integer idHospital = dto.getHospital();
         Hospital hospital = hospitalRepository
                 .findById(idHospital)
@@ -50,11 +50,7 @@ public class PacienteService {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
 
-        try {
-            cal.setTime(sdf.parse(strDataNascimento));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        cal.setTime(sdf.parse(strDataNascimento));
 
         paciente.setDataNascimento(cal);
         paciente.setCpf(dto.getCpf());
@@ -81,12 +77,14 @@ public class PacienteService {
         newPaciente.setHospital(Paciente.getHospital());
     }
 
+    @Transactional
     public Paciente update (Paciente Paciente){
         Paciente newPaciente = findByCpf(Paciente.getCpf());
         updateHospital(Paciente, newPaciente);
         return pacienteRepository.save(newPaciente);
     }
 
+    @Transactional
     public void delete(String cpf) {
         Paciente Paciente = findByCpf(cpf);
         try {

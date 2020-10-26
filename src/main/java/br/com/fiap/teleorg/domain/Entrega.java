@@ -20,7 +20,7 @@ public class Entrega implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
-    private Calendar dataHoraEntregaPrevista;
+    private Calendar previsaoEntrega;
 
     @Column()
     private LocalDate dataHoraEntrega;
@@ -34,16 +34,16 @@ public class Entrega implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_hospital")
-    private Hospital hospital;
+    private Hospital hospitalEntrega;
 
     public Entrega (){}
 
     public Entrega(Calendar dataHoraEntregaPrevista, LocalDate dataHoraEntrega, Doacao doacao, StatusEntrega statusEntrega, Hospital hospital) {
-        this.dataHoraEntregaPrevista = dataHoraEntregaPrevista;
+        this.previsaoEntrega = dataHoraEntregaPrevista;
         this.dataHoraEntrega = dataHoraEntrega;
         this.doacao = doacao;
         this.statusEntrega = statusEntrega;
-        this.hospital = hospital;
+        this.hospitalEntrega = hospital;
     }
 
     public Integer getId() {
@@ -54,12 +54,12 @@ public class Entrega implements Serializable {
         this.id = id;
     }
 
-    public Calendar getDataHoraEntregaPrevista() {
-        return dataHoraEntregaPrevista;
+    public Calendar getPrevisaoEntrega() {
+        return previsaoEntrega;
     }
 
-    public void setDataHoraEntregaPrevista(Calendar dataHoraEntregaPrevista) {
-        this.dataHoraEntregaPrevista = dataHoraEntregaPrevista;
+    public void setPrevisaoEntrega(Calendar previsaoEntrega) {
+        this.previsaoEntrega = previsaoEntrega;
     }
 
     public LocalDate getDataHoraEntrega() {
@@ -78,12 +78,12 @@ public class Entrega implements Serializable {
         this.doacao = doacao;
     }
 
-    public Hospital getHospital() {
-        return hospital;
+    public Hospital getHospitalEntrega() {
+        return hospitalEntrega;
     }
 
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
+    public void setHospitalEntrega(Hospital hospitalEntrega) {
+        this.hospitalEntrega = hospitalEntrega;
     }
 
     public StatusEntrega getStatusEntrega() {

@@ -43,12 +43,12 @@ public class DoacaoController {
     }
 
     @GetMapping("/findByReceptorCpf/{cpf}")
-    public List<Doacao> findByReceptor(@PathVariable String cpf){
+    public List<Doacao> findByReceptor(@PathVariable String cpf) {
         return service.findByReceptorCpf(cpf);
     }
 
     @GetMapping("/findAll")
-    public List<Doacao> findAll(){
+    public List<Doacao> findAll() {
         return service.findAll();
     }
 
@@ -62,9 +62,6 @@ public class DoacaoController {
         Example example = Example.of(filtro, matcher);
         return repository.findAll(example);
     }
-
-
-
 
 
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class PacienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Paciente insert(@RequestBody PacienteDto dto){
+    public Paciente insert(@RequestBody PacienteDto dto) throws ParseException {
         Paciente paciente = service.insert(dto);
         return paciente;
     }

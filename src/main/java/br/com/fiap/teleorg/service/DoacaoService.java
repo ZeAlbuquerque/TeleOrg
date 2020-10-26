@@ -69,11 +69,11 @@ public class DoacaoService {
                 repository.save(doacao);
 
                 Entrega entrega = new Entrega();
-                entrega.setHospital(receptor.getHospital());
+                entrega.setHospitalEntrega(receptor.getHospital());
                 entrega.setDoacao(doacao);
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.HOUR, 2);
-                entrega.setDataHoraEntregaPrevista(cal);
+                entrega.setPrevisaoEntrega(cal);
                 entrega.setStatusEntrega(StatusEntrega.EM_PREPARACAO);
 
                 entregaRepository.save(entrega);
@@ -98,6 +98,7 @@ public class DoacaoService {
 
     }
 
+    @Transactional
     private void delete(Doacao doacao){
         if(doacao.getOrgao().getStatusOrgao().equals(StatusOrgao.AGUARDANDO_RECEPTOR) || doacao.getOrgao().getStatusOrgao().equals(StatusOrgao.EM_ROTA)){
             repository.delete(doacao);

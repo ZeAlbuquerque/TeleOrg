@@ -24,8 +24,7 @@ public class Doacao implements Serializable {
 
     public Doacao(){}
 
-    public Doacao(Integer id, Orgao orgao, Paciente receptor) {
-        this.id = id;
+    public Doacao(Orgao orgao, Paciente receptor) {
         this.orgao = orgao;
         this.receptor = receptor;
     }

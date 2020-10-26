@@ -16,6 +16,8 @@ public class HospitalService {
     @Autowired
     private HospitalRepository repository;
 
+
+
     public Hospital findById (Integer id) {
         return repository
                 .findById(id)
