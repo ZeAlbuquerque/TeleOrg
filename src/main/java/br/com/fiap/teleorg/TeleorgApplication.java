@@ -12,17 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 @SpringBootApplication
 @RestController
-public class TeleorgApplication {
+public class TeleorgApplication extends SpringBootServletInitializer {
 
     @Bean
     public CommandLineRunner init(@Autowired HospitalRepository hospitalRepository,
@@ -182,12 +185,17 @@ public class TeleorgApplication {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
+        return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/orgao").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/api/produto").allowedOrigins("https://localhost:3000");
             }
         };
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
+        return application.sources(TeleorgApplication.class);
     }
 
 
