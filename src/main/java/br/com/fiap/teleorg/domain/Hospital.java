@@ -21,7 +21,7 @@ public class Hospital implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     @CNPJ
     private String cnpj;
 

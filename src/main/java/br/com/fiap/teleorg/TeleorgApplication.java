@@ -1,6 +1,5 @@
 package br.com.fiap.teleorg;
 
-import br.com.fiap.teleorg.domain.Hospital;
 import br.com.fiap.teleorg.domain.Orgao;
 import br.com.fiap.teleorg.domain.Paciente;
 import br.com.fiap.teleorg.enums.StatusOrgao;
@@ -12,13 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,22 +34,11 @@ public class TeleorgApplication {
                                   @Autowired EntregaService entregaService) {
         return args -> {
 
-            //Inserindo hospitais
-            hospitalRepository.save(new Hospital("Sirio Libanes", "28.510.268/0001-92", "São Paulo", "Rua Dona Adma Jafet, 91", "Bela Vista", 1133940200));
-            hospitalRepository.save(new Hospital("Albert Einstein", "10.585.152/0001-57", "São Paulo", "Av. Albert Einstein, 627", "Jardim Leonor", 1121511233));
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Calendar cal = Calendar.getInstance();
 
             //Inserindo Doadores
-
-            cal.setTime(sdf.parse("12/09/1994"));
-
-            pacienteRepository.save(new Paciente("Aleixo Meirelles", TipoSanguineo.ABNegativo, cal, "35112410060", true, hospitalService.findById(1)));
-
-            cal.setTime(sdf.parse("25/12/1988"));
-
-            pacienteRepository.save(new Paciente("Diodete Lage", TipoSanguineo.ABPositivo, cal, "00317272047", true, hospitalService.findById(1)));
 
             cal.setTime(sdf.parse("30/04/1973"));
 
