@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orgao")
-@CrossOrigin
 public class OrgaoController {
 
     @Autowired
