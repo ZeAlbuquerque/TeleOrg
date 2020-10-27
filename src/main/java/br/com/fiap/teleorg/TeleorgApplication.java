@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 @SpringBootApplication
 @RestController
-public class TeleorgApplication extends SpringBootServletInitializer {
+public class TeleorgApplication {
 
     @Bean
     public CommandLineRunner init(@Autowired HospitalRepository hospitalRepository,
@@ -182,21 +182,6 @@ public class TeleorgApplication extends SpringBootServletInitializer {
         SpringApplication.run(TeleorgApplication.class, args);
     }
 
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/produto").allowedOrigins("https://localhost:3000");
-            }
-        };
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
-        return application.sources(TeleorgApplication.class);
-    }
 
 
 }

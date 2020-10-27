@@ -22,11 +22,11 @@ public class Paciente implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "tipo_sanguineo")
     @Enumerated(EnumType.STRING)
     private TipoSanguineo tipoSanguineo;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "data_nascimento")
     private Calendar dataNascimento;
 
     @Column(nullable = false, unique = true)
@@ -37,7 +37,7 @@ public class Paciente implements Serializable {
     private Boolean doador;
 
     @ManyToOne
-    @JoinColumn(name = "hospital_id")
+    @JoinColumn(name = "id_hospital")
     private Hospital hospital;
 
     public  Paciente (){}

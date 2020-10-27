@@ -25,7 +25,7 @@ public class Doacao implements Serializable {
     private StatusDoacao statusDoacao;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "id_receptor")
     private Paciente receptor;
 
     public Doacao(){}
