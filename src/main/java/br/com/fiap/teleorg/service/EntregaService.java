@@ -2,7 +2,7 @@ package br.com.fiap.teleorg.service;
 
 import br.com.fiap.teleorg.domain.Doacao;
 import br.com.fiap.teleorg.domain.Entrega;
-import br.com.fiap.teleorg.dto.AtualizarDataHoraEntregaDto;
+import br.com.fiap.teleorg.dto.AtualizarDataHoraPrevisaoEntregaDto;
 import br.com.fiap.teleorg.dto.AtualizarStatusEntregaDto;
 import br.com.fiap.teleorg.dto.EntregaDto;
 import br.com.fiap.teleorg.enums.StatusEntrega;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -56,13 +55,20 @@ public class EntregaService {
         return entrega;
     }
 
-    public void alterarDataHorarioEntrega(AtualizarDataHoraEntregaDto dto) {
+    public void alterarDataHorarioPrevisaoEntrega(AtualizarDataHoraPrevisaoEntregaDto dto) {
         Entrega novaEntrega = findById(dto.getIdEntrega());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy H:mm:ss");
-        LocalDate novaDataHora = LocalDate.parse(dto.getNovaDataHoraEntrega(), formatter);
+        String strPrevisao = dto.getNovaDataHoraPrevisao();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(sdf.parse(strPrevisao));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        novaEntrega.setDataHoraEntrega(novaDataHora);
+        novaEntrega.setPrevisaoEntrega(cal);
+
 
         entregaRepository.save(novaEntrega);
     }

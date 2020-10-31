@@ -1,7 +1,7 @@
 package br.com.fiap.teleorg.controller;
 
 import br.com.fiap.teleorg.domain.Entrega;
-import br.com.fiap.teleorg.dto.AtualizarDataHoraEntregaDto;
+import br.com.fiap.teleorg.dto.AtualizarDataHoraPrevisaoEntregaDto;
 import br.com.fiap.teleorg.dto.AtualizarStatusEntregaDto;
 import br.com.fiap.teleorg.dto.EntregaDto;
 import br.com.fiap.teleorg.repository.EntregaRepository;
@@ -37,10 +37,10 @@ public class EntregaController {
         return service.findById(id);
     }
 
-    @PutMapping("/alterarDataHorarioEntrega")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void alterarDataHorarioEntrega(@RequestBody AtualizarDataHoraEntregaDto dto) {
-        service.alterarDataHorarioEntrega(dto);
+    @PutMapping("/alterarDataHorarioPrevisaoEntrega")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void alterarDataHorarioPrevisaoEntrega(@RequestBody AtualizarDataHoraPrevisaoEntregaDto dto) {
+        service.alterarDataHorarioPrevisaoEntrega(dto);
     }
 
     @GetMapping("/findByDoacao/{id}")
