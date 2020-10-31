@@ -1,4 +1,4 @@
-package br.com.fiap.teleorg;
+package br.com.fiap.teleorg.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

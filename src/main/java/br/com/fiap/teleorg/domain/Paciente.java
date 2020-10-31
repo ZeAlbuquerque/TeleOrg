@@ -4,6 +4,7 @@ import br.com.fiap.teleorg.enums.TipoSanguineo;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class Paciente implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
+    @NotEmpty(message = "Campo nome é obrigatório!!!")
     private String nome;
 
     @Column(nullable = false,name = "tipo_sanguineo")

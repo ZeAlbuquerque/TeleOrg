@@ -2,52 +2,55 @@ package br.com.fiap.teleorg.service;
 
 import br.com.fiap.teleorg.domain.Usuario;
 import br.com.fiap.teleorg.repository.UsuarioRepository;
-import br.com.fiap.teleorg.service.exeption.DataIntegretyException;
+import br.com.fiap.teleorg.service.exeption.SenhaInvalidaException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
+
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Autowired
     private UsuarioRepository repository;
 
-
-    public Usuario findByLogin(String login) {
-        return repository.findByLogin(login);
+    @Transactional
+    public Usuario salvar(Usuario usuario){
+        return repository.save(usuario);
     }
 
-    public Object findById(Integer id) {
-        return repository.findById(id);
-    }
-
-    public Usuario insert(Usuario usuario) {
-        usuario.setId(null);
-        usuario = repository.saveAndFlush(usuario);
-        return usuario;
-    }
-
-    private void updateUsuario(Usuario newUsuario, Usuario usuario) {
-        newUsuario.setEmail(usuario.getEmail());
-        newUsuario.setLogin(usuario.getLogin());
-        newUsuario.setSenha(usuario.getSenha());
-        newUsuario.setStatus(usuario.getStatus());
-        newUsuario.setTipo(usuario.getTipo());
-    }
-
-    public Usuario update(Usuario usuario) {
-        Usuario newUsuario = (Usuario) findById(usuario.getId());
-        updateUsuario(newUsuario, usuario);
-        return repository.saveAndFlush(newUsuario);
-    }
-
-    public void delete(String login) {
-        findByLogin(login);
-        try {
-            repository.deleteByLogin(login);
-        } catch (DataIntegretyException e) {
-            throw new DataIntegretyException("Não é possível deletar o Usuario");
+    public UserDetails autenticar (Usuario user){
+        UserDetails usuario = loadUserByUsername(user.getLogin());
+        boolean senhasBatem = encoder.matches(user.getSenha(), usuario.getPassword());
+        if(senhasBatem){
+            return usuario;
         }
+        throw new SenhaInvalidaException();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username ) throws UsernameNotFoundException {
+        Usuario usuario = repository.findByLogin(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
+
+        String[] roles = usuario.isAdmin() ? new String[]{"ADMIN","USER"} : new String[]{"USER"};
+
+        return User
+                .builder()
+                .username(usuario.getLogin())
+                .password(usuario.getSenha())
+                .roles(roles)
+                .build();
+
     }
 
 }
