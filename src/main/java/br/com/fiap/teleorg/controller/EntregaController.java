@@ -9,6 +9,7 @@ import br.com.fiap.teleorg.service.EntregaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +32,12 @@ public class EntregaController {
         return service.insert(dto);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/findById/{id}")
     public Entrega findById(@PathVariable Integer id) {
         return service.findById(id);
     }
 
-    @PutMapping
+    @PutMapping("/alterarDataHorarioEntrega")
     @ResponseStatus(HttpStatus.CREATED)
     public void alterarDataHorarioEntrega(@RequestBody AtualizarDataHoraEntregaDto dto) {
         service.alterarDataHorarioEntrega(dto);
@@ -47,11 +48,6 @@ public class EntregaController {
         return service.findByDoacao(idDoacao);
     }
 
-    @PutMapping("/cancelarEntregaPelaDoacao/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancelarEntregaPelaDoacao(@PathVariable Integer idDoacao) {
-        service.cancelarEntregaPelaDoacao(idDoacao);
-    }
 
     @PutMapping("/atualizarStatus")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -64,7 +60,7 @@ public class EntregaController {
         return service.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/filtro")
     public List<Entrega> find(Entrega filtro) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
@@ -73,6 +69,11 @@ public class EntregaController {
                         ExampleMatcher.StringMatcher.CONTAINING);
         Example example = Example.of(filtro, matcher);
         return repository.findAll(example);
+    }
+
+    @GetMapping("/{page}")
+    public Page<Entrega> search(@PathVariable Integer page){
+        return service.search(page);
     }
 
 

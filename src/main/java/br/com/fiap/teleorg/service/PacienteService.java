@@ -69,16 +69,16 @@ public class PacienteService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
     }
 
-
-    public void updateHospital(Paciente Paciente, Paciente newPaciente) {
-        newPaciente.setHospital(Paciente.getHospital());
-    }
-
     @Transactional
-    public Paciente update(Paciente Paciente) {
-        Paciente newPaciente = findByCpf(Paciente.getCpf());
-        updateHospital(Paciente, newPaciente);
-        return pacienteRepository.save(newPaciente);
+    public void update(Paciente paciente) {
+        pacienteRepository.findById(paciente.getId())
+                .map( p -> {
+                    paciente.setId(p.getId());
+                    pacienteRepository.save(paciente);
+                    return paciente;
+                }).orElseThrow( () ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Paciente não encontrado."));
     }
 
     @Transactional

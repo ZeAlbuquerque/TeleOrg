@@ -10,6 +10,9 @@ import br.com.fiap.teleorg.repository.EntregaRepository;
 import br.com.fiap.teleorg.service.exeption.RegraNegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -68,25 +71,6 @@ public class EntregaService {
         return entregaRepository.findEntregaByDoacaoId(idDoacao);
     }
 
-    public void cancelarEntregaPelaDoacao(Integer idDoacao) {
-        Entrega entregaAtualizada = findByDoacao(idDoacao);
-
-        if (entregaAtualizada.getStatusEntrega().equals(StatusEntrega.CANCELADO)) {
-            throw new RegraNegocioException("Entrega já está cancelada");
-        } else if (entregaAtualizada.getStatusEntrega().equals(StatusEntrega.ENTREGUE)) {
-            throw new RegraNegocioException("Entrega já efetivada");
-        } else {
-            entregaAtualizada.setStatusEntrega(StatusEntrega.CANCELADO);
-
-            try {
-                entregaRepository.save(entregaAtualizada);
-            } catch (DataIntegrityViolationException e) {
-                throw new DataIntegrityViolationException("Não é possivel cancelar a entrega: " + entregaAtualizada.getId());
-            }
-        }
-    }
-
-
     public void atualizarStatus(AtualizarStatusEntregaDto dto) {
         Entrega entregaAtualizada = findById(dto.getIdEntrega());
 
@@ -106,5 +90,12 @@ public class EntregaService {
 
     public List<Entrega> findAll() {
         return entregaRepository.findAll();
+    }
+
+    public Page<Entrega> search(Integer page){
+        page--;
+        PageRequest pageRequest = PageRequest.of(page,5, Sort.Direction.ASC,"id");
+
+        return entregaRepository.search(pageRequest);
     }
 }
