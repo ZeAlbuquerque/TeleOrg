@@ -75,15 +75,20 @@ public class EntregaService {
         Entrega entregaAtualizada = findById(dto.getIdEntrega());
 
         if (entregaAtualizada.getStatusEntrega().equals(StatusEntrega.CANCELADO)) {
-            throw new RegraNegocioException("Entrega cancelada!!!");
+            throw new RegraNegocioException("Entrega está cancelada!!!");
         } else if (entregaAtualizada.getStatusEntrega().equals(StatusEntrega.ENTREGUE)) {
             throw new RegraNegocioException("Entrega já efetivada");
         } else {
             try {
                 entregaAtualizada.setStatusEntrega(StatusEntrega.valueOf(dto.getNovoStatus()));
+
+                if(entregaAtualizada.getStatusEntrega().equals(StatusEntrega.ENTREGUE)){
+                    entregaAtualizada.setDataHoraEntrega(LocalDate.now());
+                }
+
                 entregaRepository.save(entregaAtualizada);
             } catch (DataIntegrityViolationException e) {
-                throw new DataIntegrityViolationException("Não é possivel cancelar a entrega: " + entregaAtualizada.getId());
+                throw new DataIntegrityViolationException("Não é possível modificar a entrega: " + entregaAtualizada.getId());
             }
         }
     }
